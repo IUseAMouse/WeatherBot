@@ -12,7 +12,8 @@ let matchPattern = (str , cb) => {
 
     if(getResult) {
         return cb({
-            intent : getResult.intent
+            intent : getResult.intent,
+            entities : createEntities(str, patterns)
         });
     }
     else{
@@ -21,5 +22,10 @@ let matchPattern = (str , cb) => {
         });
     }    
 }
+
+let createEntities = (str, pattern) => {
+    return XRegExp.exec(str, XRegExp(pattern, "i"));
+}
+    
 
 module.exports = matchPattern;
