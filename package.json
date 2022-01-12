@@ -1,0 +1,15 @@
+{
+  "name": "weatherbot",
+  "version": "1.0.0",
+  "description": "I have no idea",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yvann Vincent",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2",
+    "xregexp": "5.1.0"
+  }
+}
