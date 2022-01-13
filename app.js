@@ -5,7 +5,9 @@ const API_KEY = "239d2804c99aa098974ea74728edaf79"
 const request = require('request')
 const Readline = require('readline') ; // for reading inputs
 const matcher = require('./matcher');
+const weather = require ("./ weather ")
 const { Console } = require('console');
+
 
 const rl = Readline.createInterface ({ // for reading inputs
     input : process.stdin,
@@ -31,6 +33,10 @@ rl.on('line', reply => {
         }
         if(intent == 'get weather'){
             () => { };
+        }
+        if(intent == 'Current Weather'){
+            console.log(cb.entities.city)
+            weather(cb.entities.city)
         }
         else if(intent == 'default'){
             console.log("I'm too dumb and didn't understand");
