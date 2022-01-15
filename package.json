@@ -9,6 +9,7 @@
   "author": "Yvann Vincent",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.24.0",
     "request": "^2.88.2",
     "xregexp": "5.1.0"
   }

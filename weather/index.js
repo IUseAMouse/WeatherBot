@@ -1,6 +1,6 @@
 "use strict ";
 
-const axios = require (" axios ") ;
+const axios = require('axios');
 const apikey = "239d2804c99aa098974ea74728edaf79"; 
 
 const getWeather = location => {

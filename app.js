@@ -1,11 +1,11 @@
 'use strict';
 
-const API_KEY = "239d2804c99aa098974ea74728edaf79"
+const API_KEY = "239d2804c99aa098974ea74728edaf79";
 
-const request = require('request')
-const Readline = require('readline') ; // for reading inputs
+const request = require('request');
+const Readline = require('readline'); // for reading inputs
 const matcher = require('./matcher');
-const weather = require ("./ weather ")
+const weather = require ('./weather');
 const { Console } = require('console');
 
 
@@ -13,7 +13,7 @@ const rl = Readline.createInterface ({ // for reading inputs
     input : process.stdin,
     output : process.stdout,
     terminal : false
-})
+});
 const routes = {
     'Welcome': "Hi ! Enter city :",
     'Default': "I don't understand, please repeat",
