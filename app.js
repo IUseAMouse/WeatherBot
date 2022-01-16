@@ -20,7 +20,7 @@ const routes = {
     'Bye': "Farewell"
 };
 
-rl.setPrompt('C===3');
+rl.setPrompt('>>');
 rl.prompt();
 rl.on('line', reply => {
     matcher(reply, (data) => {
@@ -32,14 +32,48 @@ rl.on('line', reply => {
             process.exit(console.log('See you soon'));
         }
         if(intent == 'get weather'){
-            () => { };
-        }
-        if(intent == 'Current Weather'){
-            console.log(cb.entities.city)
-            weather(cb.entities.city)
+            try{
+                const city = data.entities.groups.city;
+                const time = data.entities.groups.time;
+                var query = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + API_KEY
+                request(query, function (error, response, body) {
+         
+                    if (!error && response.statusCode == 200) {
+             
+                        console.log("Looking for " + city + " weather " + time + "...");
+                        const res = JSON.parse(body)
+        
+                        var temp = Math.round((parseInt(
+                            res.main.temp_min) - 273.15), 2)
+            
+                        var pressure = Math.round(parseInt(
+                                res.main.pressure) - 1013.15)
+            
+                        var rise = new Date(parseInt(
+                                res.sys.sunrise) * 1000);
+            
+                        var set = new Date(parseInt(
+                                res.sys.sunset) * 1000);
+             
+                        console.log(res.name + ' ****\nTemperature: '
+                                + String(temp) + '°C\nHumidity: ' +
+                                res.main.humidity + ' %\nWeather: '
+                                + res.weather[0].description +
+                                '\nPressure: ' + String(pressure)
+                                + ' atm\nSunrise: ' +
+                                rise.toLocaleTimeString() +
+                                ' \nSunset: ' +
+                                set.toLocaleTimeString() +
+                                '\nCountry: ' + res.sys.country)
+                    }
+                })
+            }
+            catch(error){
+                console.log(error)
+            }
         }
         else if(intent == 'default'){
-            console.log("I'm too dumb and didn't understand");
+            console.log(routes.Default);
         }
     });
 
@@ -48,45 +82,45 @@ rl.on('line', reply => {
 
 
 
-// rl.on('line', reply => {
-//     try{
-//         var query = 'http://api.openweathermap.org/data/2.5/weather?q=' + reply + '&appid=' + API_KEY
-//         request(query, function (error, response, body) {
+rl.on('line', reply => {
+    try{
+        var query = 'http://api.openweathermap.org/data/2.5/weather?q=' + reply + '&appid=' + API_KEY
+        request(query, function (error, response, body) {
  
-//             if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode == 200) {
      
-//                 console.log("Looking for " + reply + " weather ...")
-//                 const res = JSON.parse(body)
+                console.log("Looking for " + reply + " weather ...")
+                const res = JSON.parse(body)
 
-//                 var temp = Math.round((parseInt(
-//                     res.main.temp_min) - 273.15), 2)
+                var temp = Math.round((parseInt(
+                    res.main.temp_min) - 273.15), 2)
     
-//                 var pressure = Math.round(parseInt(
-//                         res.main.pressure) - 1013.15)
+                var pressure = Math.round(parseInt(
+                        res.main.pressure) - 1013.15)
     
-//                 var rise = new Date(parseInt(
-//                         res.sys.sunrise) * 1000);
+                var rise = new Date(parseInt(
+                        res.sys.sunrise) * 1000);
     
-//                 var set = new Date(parseInt(
-//                         res.sys.sunset) * 1000);
+                var set = new Date(parseInt(
+                        res.sys.sunset) * 1000);
      
-//                 console.log(res.name + ' ****\nTemperature: '
-//                         + String(temp) + '°C\nHumidity: ' +
-//                         res.main.humidity + ' %\nWeather: '
-//                         + res.weather[0].description +
-//                         '\nPressure: ' + String(pressure)
-//                         + ' atm\nSunrise: ' +
-//                         rise.toLocaleTimeString() +
-//                         ' \nSunset: ' +
-//                         set.toLocaleTimeString() +
-//                         '\nCountry: ' + res.sys.country)
-//             }
-//         })
-//     }
-//     catch(error){
-//         console.log(error)
-//     }
+                console.log(res.name + ' ****\nTemperature: '
+                        + String(temp) + '°C\nHumidity: ' +
+                        res.main.humidity + ' %\nWeather: '
+                        + res.weather[0].description +
+                        '\nPressure: ' + String(pressure)
+                        + ' atm\nSunrise: ' +
+                        rise.toLocaleTimeString() +
+                        ' \nSunset: ' +
+                        set.toLocaleTimeString() +
+                        '\nCountry: ' + res.sys.country)
+            }
+        })
+    }
+    catch(error){
+        console.log(error)
+    }
 
-//     rl.prompt ();
-// }) ;
+    rl.prompt ();
+}) ;
 

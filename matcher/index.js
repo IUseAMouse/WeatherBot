@@ -6,14 +6,21 @@ let matchPattern = (str , cb) => {
 
     let getResult = patterns.find(item => {
         if(XRegExp.test(str, XRegExp(item.pattern, "i"))) {
+            return item ;
+          }
+    });
+
+    let getExist = patterns.find(item => {
+        if(XRegExp.test(str, XRegExp(item.pattern, "i"))) {
             return true ;
           }
     });
 
-    if(getResult) {
+    if(getExist) {
+        var item = getResult;
         return cb({
             intent : getResult.intent,
-            entities : createEntities(str, patterns)
+            entities : createEntities(str, item.pattern)
         });
     }
     else{
